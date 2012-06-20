@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 	<html>
 	<head>
-		<title>Offline Storage</title>
+	  <title>Offline Storage</title>
+	  <script src="jquery-1.6.4.min.js"></script>
+	  <script src="knockout.js"></script>
+	  <script src="knockout.mapping-latest.js"></script>
+	  <script src="mvvm.js"></script>
 	</head>
-	<body>
-		Some body text
-	</body>
-<html>
+	  <body>
+	    <form data-bind="submit: addItem">
+	      New item:
+	      <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
+	      <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
+	      <p>Your items:</p>
+	      <select multiple="multiple" width="50" data-bind="options: items"> </select>
+	    </form>
+	  </body>
+</html>
