@@ -1,9 +1,11 @@
 ﻿var SimpleListModel = function () {
     this.items = ko.observableArray([]);
     this.itemToAdd = ko.observable("");
+    this.synced = ko.observable(true);
     this.addItem = function () {
         this.items.push(this.itemToAdd());
         this.itemToAdd("");
+        this.synced(false);
     } .bind(this);
 };
 
@@ -20,7 +22,8 @@ $(function () {
 
     var storeViewModel = function () {
         localStorage.setItem(storageKey, ko.toJSON(viewModel));
+        viewModel.synced(true);
     };
 
-    setInterval(storeViewModel, 2000);
+    setInterval(storeViewModel, 5000);
 });

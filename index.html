@@ -6,14 +6,22 @@
 	  <script src="knockout.js"></script>
 	  <script src="knockout.mapping-latest.js"></script>
 	  <script src="mvvm.js"></script>
+	  <link href="main.css" type="text/css" rel="stylesheet" /> 
 	</head>
 	  <body>
+	    
+	    <span class="sync-incomplete" data-bind="visible: !synced()">Saving...</span>
+      <span class="sync-complete" data-bind="visible: synced()">All changes saved</span>
+	    
 	    <form data-bind="submit: addItem">
 	      New item:
 	      <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
 	      <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
-	      <p>Your items:</p>
-	      <select multiple="multiple" width="50" data-bind="options: items"> </select>
 	    </form>
+      
+      <p>Your items:</p>
+	    <ul data-bind="foreach: items">
+	      <li data-bind="text: $data"></li>
+	    </ul>
 	  </body>
 </html>
