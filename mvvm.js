@@ -1,29 +1,34 @@
 ﻿var SimpleListModel = function () {
     this.items = ko.observableArray([]);
     this.itemToAdd = ko.observable("");
-    this.synced = ko.observable(true);
+    this.saved = ko.observable(true);
+    this.runningtime = ko.observable("x");
     this.addItem = function () {
-        this.items.push(this.itemToAdd());
+        this.items.unshift(this.itemToAdd());
         this.itemToAdd("");
-        this.synced(false);
-    } .bind(this);
+        this.saved(false);
+    }.bind(this);
 };
 
 $(function () {
+    var runningTime = 0;
     var storageKey = "model";
     var viewModel = new SimpleListModel();
 
-    if (localStorage.getItem(storageKey)) {
+    if (localStorage.getItem(storageKey) != null) {
         var localViewModel = ko.mapping.fromJSON(localStorage.getItem(storageKey));
         viewModel.items(localViewModel.items());
     }
 
     ko.applyBindings(viewModel);
 
-    var storeViewModel = function () {
+    setInterval(function () {
         localStorage.setItem(storageKey, ko.toJSON(viewModel));
-        viewModel.synced(true);
-    };
+        viewModel.saved(true);
+    }, 5000);
 
-    setInterval(storeViewModel, 5000);
+    setInterval(function () {
+        runningTime += 1;
+        viewModel.runningtime(runningTime);
+    }, 1000);
 });

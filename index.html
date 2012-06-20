@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-	<html>
-	<head>
-	  <title>Offline Storage</title>
-	  <script src="jquery-1.6.4.min.js"></script>
-	  <script src="knockout.js"></script>
-	  <script src="knockout.mapping-latest.js"></script>
-	  <script src="mvvm.js"></script>
-	  <link href="main.css" type="text/css" rel="stylesheet" /> 
-	</head>
-	  <body>
+<html>
+<head>
+  <title>Offline Storage</title>
+  <script src="jquery-1.6.4.min.js"></script>
+  <script src="knockout.js"></script>
+  <script src="knockout.mapping-latest.js"></script>
+  <script src="mvvm.js"></script>
+  <link href="main.css" type="text/css" rel="stylesheet" /> 
+</head>
+<body>    
+	<span class="sync-incomplete" data-bind="visible: !saved()">Saving...</span>
+  <span class="sync-complete" data-bind="visible: saved()">All changes saved</span>
 	    
-	    <span class="sync-incomplete" data-bind="visible: !synced()">Saving...</span>
-      <span class="sync-complete" data-bind="visible: synced()">All changes saved</span>
-	    
-	    <form data-bind="submit: addItem">
-	      New item:
-	      <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
-	      <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
-	    </form>
+	<form data-bind="submit: addItem">
+	  New item:
+	  <input data-bind='value: itemToAdd, valueUpdate: "afterkeydown"' />
+	  <button type="submit" data-bind="enable: itemToAdd().length > 0">Add</button>
+	</form>
       
-      <p>Your items:</p>
-	    <ul data-bind="foreach: items">
-	      <li data-bind="text: $data"></li>
-	    </ul>
-	  </body>
+  <p>Your items:</p>
+	<ul data-bind="foreach: items">
+	  <li data-bind="text: $data"></li>
+	</ul>
+      
+  <span data-bind="text: runningtime()"></span>
+</body>
 </html>
